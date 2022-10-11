@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
 using System.Runtime.Serialization.Formatters;
+using ServidorConsola.entidades;
 
 namespace ServidorConsola
 {
@@ -23,15 +24,27 @@ namespace ServidorConsola
 
             return memory.ToArray();
         }
+        
 
         public static object Deserializate(byte[] data)
         {
+            Mesa mesa = null;
             MemoryStream memory = new MemoryStream(data);
-            BinaryFormatter formatter = new BinaryFormatter();
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
 
-            formatter.Binder = new CurrentAssemblyDeserializationBinder();
+               // formatter.Binder = new CurrentAssemblyDeserializationBinder();
+               mesa = (Mesa)formatter.Deserialize(memory);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                throw;
+            }
+            
 
-            return formatter.Deserialize(memory);
+            return mesa;
 
           
 

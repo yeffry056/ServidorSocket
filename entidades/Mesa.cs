@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServidorConsola
+namespace ServidorConsola.entidades
 {
-    [Serializable]
+    [Serializable()]
     public class Mesa
     {
         public int MesaId { get; set; }
